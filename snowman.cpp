@@ -4,6 +4,17 @@ using namespace std;
 #include <stdexcept>
 #include "snowman.hpp"
 
+const int ten = 10;
+const int eight = 8;
+const int seven = 7;
+const int six = 6;
+const int five = 5;
+const int four = 4;
+const int three = 3;
+const int two = 2;
+const int one = 1;
+const int zero = 0;
+
 namespace ariel {
     bool left_hand_up = false;
     bool left_hand_down = false;
@@ -46,6 +57,8 @@ namespace ariel {
     }
     // 5
     string sm_left_arm(int a) {
+        // Global variables are maintained until the end of the program
+        // therefore it is required to reset the variables obtained from a previous run.
         left_hand_up = false;
         left_hand_down = false;
         if (a==1) {
@@ -64,6 +77,8 @@ namespace ariel {
     }
     // 6
     string sm_right_arm(int a) {
+        // Global variables are maintained until the end of the program
+        // therefore it is required to reset the variables obtained from a previous run.
         right_hand_up = false;
         right_hand_down = false;
         if (a==1) {
@@ -97,24 +112,16 @@ namespace ariel {
 
 	string snowman(int a) {
         int check_len = to_string(a).length();
-        const int valid_len = 8;
-        if (a < 0 || check_len != valid_len) {throw invalid_argument("invalid input");}
-        const int ten = 10;
-        const int eight = 8;
-        const int seven = 7;
+        // Negativity check & Invalid input length check.
+        if (a < 0 || check_len != eight) {throw invalid_argument("invalid input");}
+        // Digit range check.
         array<int, eight> arr = {};
         for (int i = seven; i >= 0; i--) {
             arr.at(i) = a % ten;
             a /= ten;
             if (arr.at(i) < 1 || arr.at(i) > 4) {throw invalid_argument("invalid input");}
         }
-        const int six = 6;
-        const int five = 5;
-        const int four = 4;
-        const int three = 3;
-        const int two = 2;
-        const int one = 1;
-        const int zero = 0;
+        // Build the snowman from below
         string base = sm_base(arr[seven]);
         string torso = sm_torso(arr[six]);
         string right_arm = sm_right_arm(arr[five]);
@@ -123,14 +130,17 @@ namespace ariel {
         string left_eye = sm_left_eye(arr[two]);
         string nose_mouth = sm_nose_mouth(arr[one]);
         string hat;
-        // Get the hat
+        // Get the hat according to the input of the hand.
+        // [The hat may have 2 tiers so instead of chaining newline to second tier
+        // it is preferable to build functions that return the hat according to
+        // the left hand input].
         if (left_hand_down||left_hand_up) {hat = sm_hat_left_hand(arr[zero]);}
         else {hat = sm_hat_no_left_hand(arr[zero]);}
         torso = "("+torso+")";
         base = "("+base+")";
-        // Build the head
+        // Build the head.
         string head = "("+left_eye+nose_mouth+right_eye+")";
-        // Make a symmetry arrangement on the left
+        // Make a symmetry arrangement on the left.
         if (left_hand_up) {
             head = left_arm+head;
             base = " "+base;
