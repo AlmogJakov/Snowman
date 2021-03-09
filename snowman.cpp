@@ -1,19 +1,19 @@
-#include <string>
+#include <iostream>
 using namespace std;
 #include <array>
 #include <stdexcept>
 #include "snowman.hpp"
 
-const int ten = 10;
-const int eight = 8;
-const int seven = 7;
-const int six = 6;
-const int five = 5;
-const int four = 4;
-const int three = 3;
-const int two = 2;
-const int one = 1;
-const int zero = 0;
+constexpr int ten = 10;
+constexpr int eight = 8;
+constexpr int seven = 7;
+constexpr int six = 6;
+constexpr int five = 5;
+constexpr int four = 4;
+constexpr int three = 3;
+constexpr int two = 2;
+constexpr int one = 1;
+constexpr int zero = 0;
 
 namespace ariel {
     bool left_hand_up = false;

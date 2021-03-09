@@ -15,8 +15,19 @@
 using namespace ariel;
 
 #include <algorithm>
-#include <string>
+#include <iostream>
 using namespace std;
+
+constexpr int ten = 10;
+constexpr int nine = 9;
+constexpr int eight = 8;
+constexpr int seven = 7;
+constexpr int five = 5;
+constexpr int one = 1;
+constexpr int zero = 0;
+constexpr int n = 65536;
+constexpr int max_len = 34;
+constexpr int min_len = 23;
 
 /**
  * Returns the input string without the whitespace characters: space, newline and tab.
@@ -168,13 +179,6 @@ TEST_CASE("Check each item") {
 //
 // Therefor, 23 <= snowman-output-length <= 34.
 void check_length() {
-    const int n = 65536;
-    const int ten = 10;
-    const int eight = 8;
-    const int seven = 7;
-    const int zero = 0;
-    const int max = 34;
-    const int min = 23;
     int decimal_location = 1;
     int snowman_code = 0;
     bool seek = true;
@@ -197,7 +201,7 @@ void check_length() {
             snowman_code = snowman_code + arr.at(x)*decimal_location;
             decimal_location = decimal_location*ten;
         }
-        if (snowman(snowman_code).length() > max || snowman(snowman_code).length() < min) {
+        if (snowman(snowman_code).length() > max_len || snowman(snowman_code).length() < min_len) {
             string invalid_input = to_string(snowman_code);
             throw out_of_range{"output out of valid range (for input:"+invalid_input+")"};
         }
@@ -227,15 +231,35 @@ TEST_CASE("Bad snowman code") {
     CHECK_THROWS(snowman(12341235));
     CHECK_THROWS(snowman(123412344));
     // Number length checks
-    CHECK_THROWS(snowman(1234));
-    CHECK_THROWS(snowman(555));
-    CHECK_THROWS(snowman(123412341));
+    CHECK_THROWS(snowman(1));
+    CHECK_THROWS(snowman(11));
+    CHECK_THROWS(snowman(111));
+    CHECK_THROWS(snowman(1111));
+    // Number length checks
+    CHECK_THROWS(snowman(11111));
+    CHECK_THROWS(snowman(111111));
+    CHECK_THROWS(snowman(1111111));
     CHECK_THROWS(snowman(111111111));
+    // Number length checks
+    CHECK_THROWS(snowman(1111111111));
+    CHECK_THROWS(snowman(1234));
+    CHECK_THROWS(snowman(1234123));
+    CHECK_THROWS(snowman(123412341));
     // Negative checks
-    CHECK_THROWS(snowman(-1111111));
-    CHECK_THROWS(snowman(-11111111));
-    CHECK_THROWS(snowman(-1234123));
     CHECK_THROWS(snowman(-0));
+    CHECK_THROWS(snowman(-1234123));
+    CHECK_THROWS(snowman(-11111111));
+    CHECK_THROWS(snowman(-1111111111));
+    // Negative checks
+    CHECK_THROWS(snowman(-1));
+    CHECK_THROWS(snowman(-11));
+    CHECK_THROWS(snowman(-111));
+    CHECK_THROWS(snowman(-1111));
+    // Negative checks
+    CHECK_THROWS(snowman(-11111));
+    CHECK_THROWS(snowman(-111111));
+    CHECK_THROWS(snowman(-1111111));
+    CHECK_THROWS(snowman(-111111111));
 }
 
 //////////////////////////////////////////////////////////////////////////////////
@@ -243,13 +267,6 @@ TEST_CASE("Bad snowman code") {
 //////////////////////////////////////////////////////////////////////////////////
 
 void digit_range_check(int digit) {
-    const int ten = 10;
-    const int nine = 9;
-    const int seven = 7;
-    const int eight = 8;
-    const int five = 5;
-    const int one = 1;
-    const int zero = 0;
     int decimal_location = 1;
     int snowman_code = 0;
     array<int, eight> arr = {1,1,1,1,1,1,1,1};
@@ -268,9 +285,6 @@ void digit_range_check(int digit) {
 }
 
 TEST_CASE("Check snowman output length") {
-    const int five = 5;
-    const int nine = 9;
-    const int zero = 0;
     digit_range_check(zero);
     for (int i = five; i <= nine; i++) {
         digit_range_check(i);
