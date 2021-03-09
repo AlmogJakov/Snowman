@@ -246,6 +246,16 @@ TEST_CASE("Bad snowman code") {
     CHECK_THROWS(snowman(1234123));
     CHECK_THROWS(snowman(123412341));
     // Negative checks
+    CHECK_THROWS(snowman(-11112222));
+    CHECK_THROWS(snowman(-22221111));
+    CHECK_THROWS(snowman(-22223333));
+    CHECK_THROWS(snowman(-33332222));
+    // Negative checks
+    CHECK_THROWS(snowman(-33334444));
+    CHECK_THROWS(snowman(-44443333));
+    CHECK_THROWS(snowman(-12121212));
+    CHECK_THROWS(snowman(-34343434));
+    // Negative checks
     CHECK_THROWS(snowman(-0));
     CHECK_THROWS(snowman(-1234123));
     CHECK_THROWS(snowman(-11111111));
